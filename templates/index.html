@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    {% import 'unit/sidebar.html' as m %}
+    {{ m.sidebar(item, theme, true) }}
+
+    {% import'widgets/tag.html' as m %}
+    {{ m.show(site) }}
+
+    {% import 'widgets/links.html' as m %}
+    {{ m.show(theme) }}
+
+    {% import 'widgets/github-card.html' as m %}
+    {{ m.show(theme) }}
+
+    {% import 'widgets/douban.html' as m %}
+    {{ m.show(theme) }}
+
+    {% import 'widgets/category.html' as m %}
+    {{ m.show(theme) }}
+</head>
+<body>
+
+</body>
+</html>

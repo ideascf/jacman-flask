@@ -1,0 +1,19 @@
+{% macro show(site) %}
+    {% if site.tags|length %}
+    <div class="tagslist">
+        <p class="asidetitle">{{ gettext('tags') }}</p>
+            <ul class="clearfix">
+                {% for tag in (site.tags|sorted_tags_by_posts)[:20] %}
+                    {% if tag and tag.posts|length %}
+                        <li>
+                            <a href="{{ config.root }}{{ tag.path }}" title="{{ tag.name }}">
+                                {{ tag.name }}
+                                <sup>{{ tag.posts|length }}</sup>
+                            </a>
+                        </li>
+                    {% endif %}
+                {% endfor %}
+            </ul>
+    </div>
+    {% endif %}
+{% endmacro %}

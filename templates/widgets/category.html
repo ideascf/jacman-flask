@@ -1,0 +1,19 @@
+{% macro show(site) %}
+    {% if site.categories|length %}
+        <div class="categorieslist">
+            <p class="asidetitle">{{ gettext('categories') }}</p>
+                <ul>
+                    {% for category in categories|sort(attribute='name') %}
+                        {% if category.posts|length %}
+                            <li>
+                                <a href="{{ config.root }}{{ category.path }}" title="{{ category.name }}">
+                                    {{ category.name }}
+                                    <sup>{{ category.posts|length }}</sup>
+                                </a>
+                            </li>
+                        {% endif %}
+                    {% endfor %}
+                </ul>
+        </div>
+    {% endif %}
+{% endmacro %}

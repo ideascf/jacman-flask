@@ -1,0 +1,55 @@
+<!DOCTYPE HTML>
+<!--[if lt IE 7 ]><html class="ie ie6" lang="en"> <![endif]-->
+<!--[if IE 7 ]><html class="ie ie7" lang="en"> <![endif]-->
+<!--[if IE 8 ]><html class="ie ie8" lang="en"> <![endif]-->
+<!--[if (gte IE 9)|!(IE)]><!--><html lang="en"> <!--<![endif]-->
+
+
+
+<head>
+    <meta charset="UTF-8">
+
+    {% block head %}
+        <title>joychen的博客</title>
+        <meta name="description" content="joychen的博客, Python,go,C/C++,Lua,分布式">
+        <meta name="author" content="joychen">
+        <meta name="keywords" content="个人blog,Python,go,C/C++,分布式,gevent,celery,codis">
+
+        <title> {{ title + "|" + config.title }}</title>
+    {% endblock %}
+
+
+    <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+
+    {% if config.author %}
+        <meta name="author" content="{{ config.author }}">
+    {% endif %}
+
+    {% if page.keywords %}
+        <meta name="keywords" content="{{ page.keywords }}">
+    {% else %}
+        <meta name="keywords" content="{{ config.keywords }}">
+    {% endif %}
+
+    {%- open_graph({twitter_id: theme.author.twitter, google_plus: theme.author.google_plus}) %}
+
+    {% if theme.rss %}
+        <link rel="alternative" href="{{ theme.rss }}" title="{{ config.title }}" type="application/atom+xml">
+    {% endif %}
+
+
+    {% if theme.favicon %}
+        <link rel="icon" href="{{ config.root }}{{ theme.favicon }}">
+    {% endif %}
+
+    {% if theme.apple_icon %}
+        <link rel="apple-touch-icon" href="{{ config.root }}{{ theme.apple_icon }}">
+        <link rel="apple-touch-icon-precomposed" href="{{ config.root }}{{ theme.apple_icon }}">
+    {% endif %}
+
+    {%- css('css/style') %}
+</head>
+
+
+
+</html>

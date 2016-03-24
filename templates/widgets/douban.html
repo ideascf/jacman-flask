@@ -1,0 +1,10 @@
+{% macro show(theme) %}
+    {% if theme.author.douban %}
+        <div class="doubanshow">
+            <p class="asidetitle">{{ gettext('doubanshow') }}</p>
+            <div>
+                <script type="text/javascript" src="http://www.douban.com/service/badge/{{ theme.author.douban }}/?show=collection&amp;n=12&amp;columns=3&amp;hidelogo=yes&amp;hideself=yes&amp;cat=book|movie" ></script>
+            </div>
+        </div>
+    {% endif %}
+{% endmacro %}

@@ -1,0 +1,15 @@
+{% macro show(theme) %}
+    <div class="linkslist">
+      <p class="asidetitle">{{ gettext('links') }}</p>
+        <ul>
+            {% for title,link in theme.links.items() %}
+                {% if link.find(',') > 0 %}
+                    {% set url,comment = link.split(',') %}
+                    <a href="{{ url }}" target="_blank" title="{{ comment }}">{{ title }}</a>
+                {% else %}
+                    <a href="{{ link }}" target="_blank" title="{{ title }}">{{ title }}</a>
+                {% endif %} 
+            {% endfor %}
+        </ul>
+    </div>
+{% endmacro %}

@@ -1,0 +1,22 @@
+{% macro tags(site, config, page) %}
+{#    {% page.tag = ' ' %}#}
+
+    <div class="archive-title" >
+    <h2 class="tag-icon">{{ gettext('tags') }}</h2>
+        {% for tag in site.tags %}
+            <a data-src="{{ config.root }}{{ tag.path }}{{  tag.path }}" href="#{{ tag.name }}" title="{{ tag.name }}">
+                {{ tag.name }}
+                <sup>{{ tag.posts|length }}</sup>
+            </a>
+        {% endfor %}
+    </div>
+
+    <div id="main" class="archive-part">
+        <div class="all-list-box"></div>
+    </div>
+
+
+{% endmacro %}
+
+
+

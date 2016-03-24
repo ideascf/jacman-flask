@@ -1,0 +1,10 @@
+{% macro show(theme) %}
+    {% if site.tags|length %}
+      <div class="tagcloudlist">
+        <p class="asidetitle">{{ gettext('tagcloud') }}</p>
+        <div class="tagcloudlist clearfix">
+            {{ tagcloud() }}
+        </div>
+      </div>
+    {% endif %}
+{% endmacro %}
