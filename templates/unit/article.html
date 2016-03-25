@@ -1,0 +1,52 @@
+{% macro article(item) %}
+    {% import 'unit/post.html' as post %}
+
+    {% if theme.index.expand %}
+        {% if page.layout == 'photo' and item.photos and item.photos|length %}
+            {{ post.gallery(item) }}
+        {% endif %}
+
+        <article class="post-expand {{ item.layout }}" itemprop="articleBody">
+            {{ post.header(item) }}
+
+            <div class="article-content">
+                {% if item.excerpt and index %}
+                    {{ item.excerpt }}
+                {% else %}
+                    {{ item.content }}
+                {% endif %}
+
+                <p class="article-more-link">
+                    {% if item.excerpt and index and theme.index.excerpt_link %}
+                        <a href="{{ url_for(item.path) }}#more">{{ theme.index.excerpt_link }}</a>
+                    {% endif %}
+               </p>
+            </div>
+
+            {{ post.footer(item, index=true) }}
+        </article>
+    {% else %}
+        <section class="post" itemscope itemprop="blogitem">
+            {% if item.link %}
+                <a href="{{ item.link }}" target="_blank">
+            {% else %}
+                <a href="{{ config.root }}{{ item.path }}" title="{{ item.title }}" itemprop="url">
+            {% endif %}
+
+            <h1 itemprop="name">{{ item.title }}</h1>
+
+            {% if desc %}
+                {% if item.description %}
+                    <p itemprop="description" >{{ item.description }}</p>
+                {% elseif item.excerpt %}
+                    <p itemprop="description" >{{ get_article_desc(item.excerpt) }}</p>
+                {% else %}
+                    <p itemprop="description" >{{ get_article_desc(item.excerpt) }}</p>
+                {% endif %}
+            {% endif %}
+
+            <time datetime="{{ date_xml(item.date) }}" itemprop="datePublished">{{ item.date.strftime(config.date_format) }}</time>
+          </a>
+        </section>
+    {% endif %}
+{% endmacro %}

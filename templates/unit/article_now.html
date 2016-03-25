@@ -1,0 +1,13 @@
+{% macro article_row(item) %}
+    <section class="post" itemscope itemprop="blogPost">
+        {% if item.link %}
+            <a href="{{ item.link }}" target="_blank">
+        {% else %}
+            <a href="{{ config.root }}{{ item.path }}" title="{{ item.title }}" itemprop="url">
+        {% endif %}
+
+        <time datetime="{{ date_xml(item.date) }}" itemprop="datePublished">{{ item.date.strftime(config.date_format) }}</time>
+        <h1 itemprop="name">{{ item.title|default('&nbsp;') }} %></h1>
+      </a>
+    </section>
+{% endmacro %}

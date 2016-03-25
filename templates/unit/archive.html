@@ -1,0 +1,60 @@
+{% macro archive(page) %}
+    {% import 'unit/post.html' as post %}
+
+
+    {% if page.category %}
+        {% set title = page.category %}
+        {% set icon = 'category' %}
+    {% endif %}
+
+    {% if page.tag %}
+        {% set title = page.tag %}
+        {% set icon = 'tag' %}
+    {% endif %}
+
+    {% if page.archive %}
+        {% if page.year %}
+            {% if page.month %}
+                {% set month = '/' + page.month %}
+            {% else %}
+                {% set month = '' %}
+            {% endif %}
+
+            {% set title = page.year + month %}
+        {% else %}
+            {% set title = gettext('archive_a') %}
+        {% endif %}
+
+        {% set icon = 'archive' %}
+    {% endif %}
+
+<div class="archive-title" >
+  <h2 class="{{ icon }}-icon">{{ title }}</h2>
+    {% if page.archive %}
+        <div class="archiveslist archive-float clearfix">
+            {{ list_archives({'format': gettext('archive_date')}) }}
+        </div>
+    {% endif %}
+</div>
+
+<div id="main" class="archive-part clearfix">
+  <div id="archive-page">
+      {% for p in page.posts %}
+          {{ post }}
+      {% endfor %}
+
+<% page.posts.each(function(item){ %>
+  <%- partial('_partial/article_row', {item: item, index: true}) %>
+<% }); %>
+<% if (page.total > 1){ %>
+  <nav id="page-nav" class="clearfix archive-nav">
+    <%- paginator({
+      prev_text: '<span></span>Prev',
+      next_text: 'Next<span></span>'
+    }) %>
+  </nav>
+<% } %>
+  </div>
+</div>
+
+{% endmacro %}

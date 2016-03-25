@@ -1,0 +1,11 @@
+{% macro pagination() %}
+    <nav class="pagenav clearfix">
+        {% if page.prev %}
+            <a href="{{ config.root }}{{ page.prev_link }}" title="{{ gettext('prev') }}" class="prevpage">{{ gettext('prev') }}</a>
+        {% endif %}
+
+        {% if page.next %}
+            <a href="{{ config.root }}{{ page.next_link }}" title="{{ gettext('next') }}" class="nextpage">{{ gettext('next') }}</a>
+        {% endif %}
+    </nav>
+{% endmacro %}

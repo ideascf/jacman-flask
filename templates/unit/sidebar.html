@@ -1,25 +1,26 @@
-{% macro sidebar(item, theme, table=false) -%}
+{% macro sidebar(item, table=false) -%}
     <div class="openaside"><a class="navbutton" href="#" title="{{ gettext('showsidebar') }}"></a></div>
 
     {% if (table and item.toc != false) and theme.toc.aside %}
         <div id="toc" class="toc-aside">
-        <strong class="toc-title">{{ gettext('contents') }}</strong>
-        {% if item.list_number == false %}
-            {{ toc(item.content, {'list_number': false}) }}
-        {% else %}
-            {{ toc(item.content) }}
-        {% endif %}
-         </div>
+            <strong class="toc-title">{{ gettext('contents') }}</strong>
+            {% if item.list_number == false %}
+                {{ toc(item.content, {'list_number': false}) }}
+            {% else %}
+                {{ toc(item.content) }}
+            {% endif %}
+        </div>
     {% endif %}
 
     <div id="asidepart">
+
     <div class="closeaside"><a class="closebutton" href="#" title="{{ gettext('hidesidebar') }}"></a></div>
-    <aside class="clearfix">
-        {% for widget in widgets %}
-            {% set module = "widgets/" + widget + ".html" %}
-            {% import module as m %}
-            {{ m.show(theme) }}
-        {% endfor %}
-    </aside>
+        <aside class="clearfix">
+            {% for widget in widgets %}
+                {% set module = "widgets/" + widget + ".html" %}
+                {% import module as m %}
+                {{ m.show() }}
+            {% endfor %}
+        </aside>
     </div>
 {%- endmacro %}

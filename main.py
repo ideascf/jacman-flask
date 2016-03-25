@@ -1,17 +1,22 @@
 # coding=utf-8
 import copy
+import datetime
+import re
 from flask import Flask
 from flask import render_template
 
 app = Flask(__name__)
 
 # function
+
+
 def gettext(str):
     return str
 
 
 def toc(str, config=None):
     return str
+
 
 def list_archives():
     """
@@ -21,6 +26,7 @@ def list_archives():
 
     return []
 
+
 def tagcloud():
     """
     返回标签云
@@ -28,6 +34,68 @@ def tagcloud():
     """
 
     return ''
+
+
+def date_xml(date):
+    pass
+
+
+def root_for(path):
+    """
+
+    :param path:
+    :type path: str
+    :return:
+    """
+
+    path = path or '/'
+    root = config['root']
+    if path.startswith(root):
+        if path[0] == '/':
+            path = root[0:-1] + path
+        else:
+            path = root + path
+
+    return path
+
+def open_graph(data):
+    pass
+
+def css(file):
+    # 将.style文件编译为css文件
+    pass
+
+def cur_year():
+    """
+
+    :return:
+    :rtype: str
+    """
+
+    return str(datetime.datetime.now().year)
+
+def strip_html(str):
+    """
+
+    :param str:
+    :return:
+    :rtype: str
+    """
+    pass
+
+def get_article_desc(article_str):
+    """
+
+    :param article_str:
+    :type article_str: str
+    :return:
+    :rtype: str
+    """
+
+    s = strip_html(article_str)
+    s = s.strip()
+
+    return s[:140]
 
 # filter
 def sorted_tags_by_posts(tags):
@@ -57,9 +125,9 @@ site = {
         {'path': '/path/go', 'name': 'go', 'posts': ['post1', 'post3']},
         {'path': '/path/python', 'name': 'python', 'posts': ['post1', 'post2', 'post4']},
     ],
-    'categories':[
-        {'posts':['post1', 'post2'], 'path': 'category1.path', 'name': 'category1'},
-        {'posts':['post3',], 'path': 'category2.path', 'name': 'category2'}
+    'categories': [
+        {'posts': ['post1', 'post2'], 'path': 'category1.path', 'name': 'category1'},
+        {'posts': ['post3', ], 'path': 'category2.path', 'name': 'category2'}
     ]
 }
 
@@ -99,6 +167,9 @@ app.jinja_env.globals.update(
     toc=toc,
     list_archives=list_archives,
     tagcloud=tagcloud,
+    date_xml=date_xml,
+    root_for=root_for,
+    cur_year=cur_year,
 
     config=config,
     theme=theme,

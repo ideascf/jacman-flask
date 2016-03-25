@@ -1,0 +1,51 @@
+{% macro header() %}
+    <div>
+        {% if theme.imglogo.enable and theme.imglogo.src %}
+            <div id="imglogo">
+                <a href="{{ config.root }}"><img src="{{ config.root }}{{ theme.imglogo.src }}" alt="{{ config.title }}" title="{{ config.title }}"/></a>
+            </div>
+        {% endif %}
+
+        <div id="textlogo">
+            <h1 class="site-name"><a href="{{ config.root }}" title="{{ config.title }}">{{ config.title }}</a></h1
+            <h2 class="blog-motto">{{ config.subtitle|default() }}</h2>
+        </div>
+
+        <div class="navbar">
+            <a class="navbutton navmobile" href="#" title="{{ gettext('menu') }}"></a>
+        </div>
+
+        <nav class="animated">
+            <ul>
+                {% for menu in theme.menu %}
+                    <li><a href="{{ root_for(theme.menu[i]) }}">{{ menu }}</a></li>
+                {% endfor %}
+
+                <li>
+                    {% if theme.google_cse.enable %}
+                        <form class="search" action="{{ config.root }}search/index.html" method="get" accept-charset="utf-8">
+                            <label>Search</label>
+                            <input type="search" id="search" autocomplete="off" name="q" maxlength="20" placeholder="{{ gettext('search') }}" />
+                        </form>
+                    {% elseif theme.baidu_search.enable %}
+                        <form class="search" action="{{ theme.baidu_search.site }}" target="_blank">
+                            <label>Search</label>
+                        <input name="s" type="hidden" value= {{ theme.baidu_search.id }} ><input type="text" name="q" size="30" placeholder="{{ gettext('search') }}"><br>
+                        </form>
+                    {% elseif theme.tinysou_search.enable %}
+                        <form class="search">
+                            <label>Search</label>
+                        <input type="text" id="ts-search-input" name="q" size="30" placeholder="{{ gettext('search') }}"><br>
+                        </form>
+                    {% else %}
+                        <form class="search" action="//google.com/search" method="get" accept-charset="utf-8">
+                            <label>Search</label>
+                            <input type="search" id="search" name="q" autocomplete="off" maxlength="20" placeholder="{{ gettext('search') }}" />
+                            <input type="hidden" name="q" value="site:<%- config.url.replace(/^https?:\/\//, '') %>">
+                        </form>
+                    {% endif %}
+                </li>
+            </ul>
+        </nav>
+    </div>
+{% endmacro %}

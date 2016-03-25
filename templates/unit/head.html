@@ -1,0 +1,58 @@
+{# html文件的head #}
+{% macro head() %}
+    <!DOCTYPE HTML>
+    <html {% if config.language %} lang = "{{ config.language }}" {% endif %}>
+
+    <head>
+      <meta charset="UTF-8">
+        <script>
+            var title = page.title;
+
+            if (is_archive()){
+            title = {{ gettext('archive_a') }};
+
+            if (is_month()){
+              title += ': ' + page.year + '/' + page.month;
+            } else if (is_year()){
+              title += ': ' + page.year;
+            }
+            } else if (is_category()){
+            title =  {{ gettext('categories') }} + ' : ' + page.category;
+            } else if (is_tag()){
+            title = {{ gettext('tags') }} + ' : ' + page.tag;
+            }
+        </script>
+
+
+        <title>{% if title %} {{ title + '|' + config.title }} {% endif %} </title>
+
+        <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+
+        {% if config.author %}
+            <meta name="author" content="<%= config.author %>">
+        {% endif %}
+
+        {% if page.keywords %}
+            <meta name="keywords" content="<%= page.keywords %>">
+        {% endif %}
+
+        {{ open_graph({'twitter_id': theme.author.twitter, 'google_plus': theme.author.google_plus}) }}
+
+        {% if theme.rss %}
+            <link rel="alternative" href="{{ theme.rss }}" title="{{ config.title }}" type="application/atom+xml">
+        {% endif %}
+
+        {% if theme.favicon %}
+            <link rel="icon" href="{{ config.root }}{{ theme.favicon }}">
+        {% endif %}
+
+        {% if theme.apple_icon %}
+            <link rel="apple-touch-icon" href="{{ config.root }}{{ theme.apple_icon }}">
+            <link rel="apple-touch-icon-precomposed" href="{{ config.root }}{{ theme.apple_icon }}">
+        {% endif %}
+
+        {{ css('css/style') }}
+    </head>
+
+{% endmacro %}
+
