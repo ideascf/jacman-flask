@@ -76,7 +76,7 @@
 {# 脚注 #}
 {% macro footer(item, index) %}
     <footer class="article-footer clearfix">
-        {{ catetags() }}
+        {{ catetags(item) }}
 
         {% if not index %}
             <div class="article-share" id="share">

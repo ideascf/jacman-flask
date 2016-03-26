@@ -1,4 +1,4 @@
-{% macro pagination() %}
+{% macro pagination(page) %}
     <nav class="pagenav clearfix">
         {% if page.prev %}
             <a href="{{ config.root }}{{ page.prev_link }}" title="{{ gettext('prev') }}" class="prevpage">{{ gettext('prev') }}</a>

@@ -1,27 +1,17 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title></title>
-    {% import 'unit/sidebar.html' as m %}
-    {{ m.sidebar(item, theme, true) }}
+{% import 'unit/article.html' as article %}
+{% import 'unit/pagination.html' as pagination %}
+{% import 'layout.html' as layout %}
 
-    {% import'widgets/tag.html' as m %}
-    {{ m.show(site) }}
+{#{{ layout.layout(page) }}#}
 
-    {% import 'widgets/links.html' as m %}
-    {{ m.show(theme) }}
+<div id="main">
+    {% for post in page.posts %}
+        {{ article.article(item=post, index=true, desc=true) }}
+    {% endfor %}
 
-    {% import 'widgets/github-card.html' as m %}
-    {{ m.show(theme) }}
-
-    {% import 'widgets/douban.html' as m %}
-    {{ m.show(theme) }}
-
-    {% import 'widgets/category.html' as m %}
-    {{ m.show(theme) }}
-</head>
-<body>
-
-</body>
-</html>
+    {% if page.total > 1 %}
+        <nav id="page-nav" class="clearfix {% if not theme.index.expand %} unexpand {% endif %}">
+        {{ pagination.pagination(page={'prev': '<span></span>Prev', 'next': 'Next<span></span>'}) }}
+        </nav>
+    {% endif %}
+</div>

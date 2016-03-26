@@ -1,0 +1,11 @@
+#totop {
+  position: fixed;
+  bottom: 5em;
+  right: 1em;
+  cursor: pointer;
+}
+@media tabletmax {
+  #totop {
+    display: none !important;
+  }
+}

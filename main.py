@@ -1,15 +1,13 @@
 # coding=utf-8
 import copy
 import datetime
-import re
 from flask import Flask
 from flask import render_template
 
 app = Flask(__name__)
 
+
 # function
-
-
 def gettext(str):
     return str
 
@@ -49,7 +47,7 @@ def root_for(path):
     """
 
     path = path or '/'
-    root = config['root']
+    root = theme['root']
     if path.startswith(root):
         if path[0] == '/':
             path = root[0:-1] + path
@@ -59,7 +57,7 @@ def root_for(path):
     return path
 
 def open_graph(data):
-    pass
+    return ''
 
 def css(file):
     # 将.style文件编译为css文件
@@ -97,6 +95,10 @@ def get_article_desc(article_str):
 
     return s[:140]
 
+def is_post(page):
+
+    return page.get('layout', '') == 'post'
+
 # filter
 def sorted_tags_by_posts(tags):
     """
@@ -113,11 +115,6 @@ def sorted_tags_by_posts(tags):
     return tags
 
 app.add_template_filter(sorted_tags_by_posts)
-
-
-config = {
-    'root': '/home/'
-}
 
 site = {
     'tags': [
@@ -151,6 +148,45 @@ theme = {
         'manong': 'https://coderq.com,programmer share...',
         'joychen': 'http://wuchong.me',
     },
+    'root': '/',
+    'index': {
+        'expand': True,
+        'excerpt_link': 'Read More',
+    },
+    'date_format': '%Y-%m-%d',
+    'imglogo': {
+        'enable': True,
+        'src': 'static/img/logo.png'
+    },
+
+    'google_analytics': {
+        'enable': False,
+        'id': '',
+        'site': ''
+    },
+    'baidu_tongji': {
+        'enable': False,
+        'sitecode': '',
+    },
+    'cnzz_tongji': {
+        'enable': False,
+        'siteid': ''
+    },
+
+
+    'google_cse': {
+        'enable': False,
+        'cx': '',
+    },
+    'baidu_search': {
+        'enable': False,
+        'id': '',
+        'site': '',
+    },
+    'tinysou_search': {
+        'enable': False,
+        'id': '',
+    },
 }
 
 widgets = [
@@ -162,6 +198,57 @@ item = {
     'content': 'item-content',
 }
 
+article_page = {
+    'title': 'title-test',
+    'date': datetime.datetime.now(),
+    'updated': datetime.datetime.now(),
+    'comments': '',
+    'layout': 'post',
+    'content': 'content-testtest',
+    'excerpt': 'excerpt-test',
+    'more': 'more-test',
+    'source': 'source-test',
+    'full_source': 'full_source-test',
+    'path': 'path_test',
+    'permalink': 'permalink-test',
+    'prev': 'prev-test',
+    'next': 'next-test',
+    'raw': 'raw-test',
+    'photos': 'photos-test',
+    'link': 'link-test',
+}
+
+post_page = {
+    'published': True,
+    'categories': ['category1', 'category2'],
+    'tags': ['tag1', 'tag2']
+}
+
+home_page = {
+    'per_page': 20,
+    'total': 100,
+    'current': 1,
+    'current_url': '/',
+    'posts': [article_page],
+    'prev_link': '',
+    'next_link': '',
+    'path': '/',
+}
+
+archive_page = {
+    'archive': True,
+    'year': 2016,
+    'month': 12,
+}
+
+category_page = {
+    'category': 'category1',
+}
+
+tag_page = {
+    'tag': 'tag1',
+}
+
 app.jinja_env.globals.update(
     gettext=gettext,
     toc=toc,
@@ -170,19 +257,28 @@ app.jinja_env.globals.update(
     date_xml=date_xml,
     root_for=root_for,
     cur_year=cur_year,
+    open_graph=open_graph,
+    is_post=is_post,
 
-    config=config,
+    config=theme,
     theme=theme,
     site=site,
     tinysou_search=tinysou_search,
     widgets=widgets,
 
     item=item,
+    page=home_page,
 )
 
+@app.route('/path-test')
+def path_test():
+    pass
 
 @app.route('/')
 def index():
+    import flask
+    print flask.url_for('path_test')
+
     return render_template('index.html')
 
 if __name__ == '__main__':

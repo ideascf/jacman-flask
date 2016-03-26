@@ -1,4 +1,4 @@
-{% macro article(item) %}
+{% macro article(item, index, desc) %}
     {% import 'unit/post.html' as post %}
 
     {% if theme.index.expand %}
@@ -38,7 +38,7 @@
             {% if desc %}
                 {% if item.description %}
                     <p itemprop="description" >{{ item.description }}</p>
-                {% elseif item.excerpt %}
+                {% elif item.excerpt %}
                     <p itemprop="description" >{{ get_article_desc(item.excerpt) }}</p>
                 {% else %}
                     <p itemprop="description" >{{ get_article_desc(item.excerpt) }}</p>
