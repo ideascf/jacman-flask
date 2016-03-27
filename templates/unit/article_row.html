@@ -7,7 +7,7 @@
         {% endif %}
 
         <time datetime="{{ date_xml(item.date) }}" itemprop="datePublished">{{ item.date.strftime(config.date_format) }}</time>
-        <h1 itemprop="name">{{ item.title|default('&nbsp;') }} %></h1>
+        <h1 itemprop="name">{{ item.title|default('&nbsp;') }}</h1>
       </a>
     </section>
 {% endmacro %}

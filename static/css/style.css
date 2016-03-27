@@ -95,7 +95,7 @@ a img {
   font-weight: normal;
   font-style: normal;
   src: url("../font/coveredbyyourgrace-webfont.eot");
-  src: url("../font/coveredbyyourgrace-webfont.eot?#iefix") format('embedded-opentype'), url("../font/coveredbyyourgrace-webfont.svg#covered_by_your_graceregular") format('svg'), url("../font/coveredbyyourgrace-webfont.woff") format('woff'), url("../font/coveredbyyourgrace-webfont.ttf") format('truetype');
+  src: url("../font/coveredbyyourgrace-webfont.eot?#iefix") format('embedded-opentype'), url("../font/coveredbyyourgrace-webfont.svg#covered_by_your_graceregular") format('svg');
 }
 /* icon Font */
 @font-face {
@@ -103,14 +103,13 @@ a img {
   font-style: normal;
   font-weight: normal;
   src: url("../font/fontawesome-webfont.eot?v=#4.0.3");
-  src: url("../font/fontawesome-webfont.eot?#iefix&v=#4.0.3") format("embedded-opentype"), url("../font/fontawesome-webfont.woff?v=#4.0.3") format("woff"), url("../font/fontawesome-webfont.ttf?v=#4.0.3") format("truetype"), url("../font/fontawesome-webfont.svg#fontawesomeregular?v=#4.0.3") format("svg");
 }
 @font-face {
   font-family: "fontdiao";
   font-weight: normal;
   font-style: normal;
   src: url("../font/fontdiao.eot");
-  src: url("../font/fontdiao.eot?#iefix") format('embedded-opentype'), url("../font/fontdiao.svg#fontdiao") format('svg'), url("../font/fontdiao.woff") format('woff'), url("../font/fontdiao.ttf") format('truetype');
+  src: url("../font/fontdiao.eot?#iefix") format('embedded-opentype'), url("../font/fontdiao.svg#fontdiao") format('svg');
 }
 /* Public style */
 * {
@@ -392,7 +391,7 @@ body >header {
   width: 100%;
   -webkit-box-shadow: 2px 4px 5px rgba(3,3,3,0.2);
   box-shadow: 2px 4px 5px rgba(3,3,3,0.2);
-  background: url("../") center #2ca6cb;
+  background: #2ca6cb;
   color: #fff;
   padding: 1em 0 0.8em;
 }

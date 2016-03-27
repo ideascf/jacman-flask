@@ -1,11 +1,11 @@
-{% import 'unit/head.html' as head %}
-{% import 'unit/header.html' as header %}
-{% import 'unit/sidebar.html' as sidebar %}
-{% import 'unit/footer.html' as footer %}
-{% import 'unit/after_footer.html' as after_footer %}
-{% import 'unit/categories.html' as categories %}
-{% import 'unit/tags.html' as tags %}
-{% import 'unit/search.html' as search %}
+{% import 'unit/head.html' as head  %}
+{% import 'unit/header.html' as header  %}
+{% import 'unit/sidebar.html' as sidebar  %}
+{% import 'unit/footer.html' as footer  %}
+{% import 'unit/after_footer.html' as after_footer  %}
+{% import 'unit/categories.html' as categories  %}
+{% import 'unit/tags.html' as tags  %}
+{% import 'unit/search.html' as search  %}
 
 {{ head.head(page) }}
 <body>
@@ -15,7 +15,6 @@
 
     <div id="container">
         {% block main %}
-            {{ body }}
         {% endblock %}
 
         {% block sidebar %}
@@ -25,3 +24,4 @@
     <footer>{{ footer.footer() }}</footer>
     {{ after_footer.after_footer() }}
 </body>
+

@@ -1,7 +1,6 @@
 {% macro archive(page) %}
     {% import 'unit/post.html' as post %}
 
-
     {% if page.category %}
         {% set title = page.category %}
         {% set icon = 'category' %}
@@ -33,14 +32,14 @@
       <h2 class="{{ icon }}-icon">{{ title }}</h2>
         {% if page.archive %}
             <div class="archiveslist archive-float clearfix">
-                {{ list_archives({'format': gettext('archive_date')}) }}
+                {{ list_archives(page, {'format': gettext('%Y-%m-%d')})|safe }}
             </div>
         {% endif %}
     </div>
 
     <div id="main" class="archive-part clearfix">
         <div id="archive-page">
-            {% import 'unit/article_row.html' as article_row %}
+            {% import 'unit/article_row.html' as article_row  %}
 
             {% for post in page.posts %}
                 {{ article_row.article_row(item=post) }}

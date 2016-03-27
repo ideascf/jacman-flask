@@ -7,12 +7,12 @@
     {% import 'unit/sidebar.html' as sidebar %}
 
     <div id="main">
-        {#文章列表#}
+        {# 文章列表 #}
         {% for post in page.posts %}
             {{ article.article(page=page, article=post, index=true, desc=true) }}
         {% endfor %}
 
-        {#分页选择器#}
+        {# 分页选择器 #}
         {% if page.total > 1 %}
             <nav id="page-nav" class="clearfix {% if not theme.index.expand %} unexpand {% endif %}">
             {{ pagination.pagination(page={'prev': '<span></span>Prev', 'next': 'Next<span></span>'}) }}
@@ -22,6 +22,8 @@
 {% endblock main %}
 
 {% block sidebar %}
-    {#侧划抽屉#}
+     {# 侧划抽屉 #}
     {{ sidebar.sidebar(page=page, table=false) }}
 {% endblock sidebar %}
+
+{#{{ list_archives(page, {'format': gettext('%Y-%m-%d')}) }}#}

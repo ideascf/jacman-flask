@@ -1,9 +1,11 @@
 {% extends 'base.html' %}
 
-{% import'unit/archive.html' as archive %}
+{% import'unit/archive.html' as archive  %}
 
 {% block main %}
+
     <div id="container">
         {{ archive.archive(page) }}
     </div>
+
 {% endblock main %}

@@ -42,7 +42,7 @@
                 'show_count': false,
                 'class': 'article-category',
                 'style': 'none',
-                'separator': '►'})
+                'separator': '►'})|safe
                 }}
             </div>
         {% endif %}
@@ -140,13 +140,13 @@
           {% endif %}
       </h1>
 
-      <p class="article-author">By
-          {% if theme.author.google_plus %}
-              <a href="https://plus.google.com/{{ theme.author.google_plus }}?rel=author" title="{{ config.author }}" target="_blank" itemprop="author">{{ config.author }}</a>
-          {% else %}
-              <a href="{{ config.root }}about" title="{{ config.author }}" target="_blank" itemprop="author">{{ config.author }}</a>
-          {% endif %}
-      </p>
+{#      <p class="article-author">By#}
+{#          {% if theme.author.google_plus %}#}
+{#              <a href="https://plus.google.com/{{ theme.author.google_plus }}?rel=author" title="{{ config.author }}" target="_blank" itemprop="author">{{ config.author }}</a>#}
+{#          {% else %}#}
+{#              <a href="{{ config.root }}about" title="{{ config.author }}" target="_blank" itemprop="author">{{ config.author }}</a>#}
+{#          {% endif %}#}
+{#      </p>#}
 
       <p class="article-time">
         <time datetime="{{ date_xml(article.date) }}" itemprop="datePublished"> {{ gettext('datepublished') }} {{ article.date.strftime(config.date_format) }}</time>
