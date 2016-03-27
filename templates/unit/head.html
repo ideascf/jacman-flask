@@ -1,28 +1,22 @@
 {# html文件的head #}
-{% macro head() %}
+{% macro head(page) %}
     <!DOCTYPE HTML>
     <html {% if config.language %} lang = "{{ config.language }}" {% endif %}>
 
     <head>
       <meta charset="UTF-8">
-        <script>
-            var title = page.title;
+        {% set title = page.title %}
+        {% if page.layout == 'archive' %}
+{#            {% if  %}#}
+{#            #}
+{#            {% endif %} #}
 
-            if (is_archive()){
-            title = {{ gettext('archive_a') }};
-
-            if (is_month()){
-              title += ': ' + page.year + '/' + page.month;
-            } else if (is_year()){
-              title += ': ' + page.year;
-            }
-            } else if (is_category()){
-            title =  {{ gettext('categories') }} + ' : ' + page.category;
-            } else if (is_tag()){
-            title = {{ gettext('tags') }} + ' : ' + page.tag;
-            }
-        </script>
-
+            {% if page.layout == 'category' %}
+                {% set title = gettext('categories') + ' : ' + page.category %}
+            {% elif page.layout == 'tag' %}
+                {% set title = gettext('tags') + ' : ' + page.tag %}
+            {% endif %}
+        {% endif %}
 
         <title>{% if title %} {{ title + '|' + config.title }} {% endif %} </title>
 

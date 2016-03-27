@@ -1,39 +1,44 @@
 {# 文章 #}
-{% macro article(item, table) %}
-    <div id="main" class="{{ item.layout }}" itemscope itemprop="blogPost">
-        {% if page.layout == 'photo' %}
+{% macro article(article, table) %}
+    <div id="main" class="{{ article.layout }}" itemscope itemprop="blogPost">
+        {% if article.layout == 'photo' and article.photos and article.photos|length %}
             {{ gallery() }}
         {% endif %}
 
         <article itemprop="articleBody">
-            {{ header() }}
+            {{ header(article) }}
             <div class="article-content">
-                {% if table and (item.toc != false) and theme.toc.article %}
+                {# 生成目录 #}
+                {% if (table and (article.toc != false)) and theme.toc.article %}
                     <div id="toc" class="toc-article">
                         <strong class="toc-title">{{ gettext('contents') }}</strong>
-                        {% if item.list_number == false %}
-                            {{ toc(item.content, {'list_number': false}) }}
+
+                        {% if article.list_number == false %}
+                            {{ toc(article.content, {'list_number': false}) }}
                         {% else %}
-                            {{ toc(item.content) }}
+                            {{ toc(article.content) }}
                         {% endif %}
                     </div>
                 {% endif %}
-                {{ item.content }}
+
+                {# 文章内容 #}
+                {{ article.content }}
             </div>
-            {{ footer() }}
+            {# 文章的footer #}
+            {{ footer(article, 1) }}
         </article>
-        {{ pagination() }}
-        {{ comment() }}
+        {{ pagination(article) }}
+        {{ comment(article) }}
     </div>
 {% endmacro %}
 
-{# 分类 #}
-{% macro catetags(item) %}
+{# 分类和标签 #}
+{% macro catetags(article) %}
     <div class="article-catetags">
-        {% if item.categories and item.categories|length %}
+        {% if article.categories and article.categories|length %}
             <div class="article-categories">
               <span></span>
-                {{ list_categories(item.categories, {
+                {{ list_categories(article, article.categories, {
                 'show_count': false,
                 'class': 'article-category',
                 'style': 'none',
@@ -42,11 +47,11 @@
             </div>
         {% endif %}
 
-        {% if item.tags and item.tags|length %}
+        {% if article.tags and article.tags|length %}
             <div class="article-tags">
                 {% set tags = [] %}
 
-                {% for tag in tags %}
+                {% for tag in article.tags %}
                     {{ tags.append('<a href="' + config.root + tag.path + '">' + tag.name + '</a>') }}
                 {% endfor %}
 
@@ -57,14 +62,14 @@
 {% endmacro %}
 
 {# 评论 #}
-{% macro comment(page) %}
-    {% if theme.duoshuo_shortname and page.comments %}
+{% macro comment(article) %}
+    {% if theme.duoshuo_shortname and article.comments %}
         <section id="comments" class="comment">
-            <div class="ds-thread" data-thread-key="{{ page.path }}" data-title="{{ page.title }}" data-url="{{ page.permalink }}"></div>
+            <div class="ds-thread" data-thread-key="{{ article.path }}" data-title="{{ article.title }}" data-url="{{ article.permalink }}"></div>
         </section>
     {% endif %}
 
-    {% if (config.disqus_shortname or theme.disqus_shortname) and page.comments %}
+    {% if (config.disqus_shortname or theme.disqus_shortname) and article.comments %}
         <section id="comments" class="comment">
           <div id="disqus_thread">
             <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
@@ -74,9 +79,9 @@
 {% endmacro %}
 
 {# 脚注 #}
-{% macro footer(item, index) %}
+{% macro footer(article, index) %}
     <footer class="article-footer clearfix">
-        {{ catetags(item) }}
+        {{ catetags(article) }}
 
         {% if not index %}
             <div class="article-share" id="share">
@@ -85,21 +90,19 @@
                     {{ jiathis() }}
                 </div>
             {% else %}
-                <div data-url="{{ item.permalink }}" data-title="{% if item.title %} {{ item.title }} | {{ config.title }} {% endif %}"
-                     data-tsina="<%= theme.author.tsina %>" class="share clearfix">
+                <div data-url="{{ article.permalink }}" data-title="{% if article.title %} {{ article.title }} | {{ config.title }} {% endif %}"
+                     data-tsina="{{ theme.author.tsina }}" class="share clearfix">
                 </div>
             {% endif %}
             </div>
-        {% endif %}
-
-        {% if index %}
+        {% else %}
             <div class="comments-count">
                 {% if (config.disqus_shortname or theme.disqus_shortname) and not theme.duoshuo_shortname %}
                     <span></span>
-                    <a href="{{ config.root }}{{ item.path }}#disqus_thread" class="comments-count-link">Comments</a>
+                    <a href="{{ config.root }}{{ article.path }}#disqus_thread" class="comments-count-link">Comments</a>
                 {% elif theme.duoshuo_shortname %}
                     <span></span>
-                    <a href="{{ config.root }}{{ item.path }}#comments" class="ds-thread-count comments-count-link" data-thread-key="{{ item.path }}" data-count-type="comments">&nbsp;</a>
+                    <a href="{{ config.root }}{{ article.path }}#comments" class="ds-thread-count comments-count-link" data-thread-key="{{ article.path }}" data-count-type="comments">&nbsp;</a>
                 {% endif %}
             </div>
         {% endif %}
@@ -107,33 +110,33 @@
 {% endmacro %}
 
 {# 画廊 #}
-{% macro gallery(item) %}
+{% macro gallery(article) %}
     <div class="gallery">
         <div class="photoset">
-          {% if item.photos|length %}
-              {% for photo in item.photos %}
+          {% if article.photos|length %}
+              {% for photo in article.photos %}
                   <img src="{{ photo }}">
               {% endfor %}
-          {% else %}
-              <img src="{{ item.photos }}">
+{#          {% else %}#}
+{#              <img src="{{ article.photos }}">#}
           {% endif %}
         </div>
 
         <div class="control">
-        <div class="prev"></div>
-        <div class="next"></div>
+            <div class="prev"></div>
+            <div class="next"></div>
         </div>
     </div>
 {% endmacro %}
 
 {# 头部 #}
-{% macro header(item) %}
+{% macro header(article) %}
     <header class="article-info clearfix">
       <h1 itemprop="name">
-          {% if item.link %}
-              <a href="{{ item.link }}" target="_blank" title="{{ item.title }}">{{ item.title }}</a>
+          {% if article.link %}
+              <a href="{{ article.link }}" target="_blank" title="{{ article.title }}">{{ article.title }}</a>
           {% else %}
-              <a href="{{ config.root }}{{ item.path }}" title="{{ item.title }}" itemprop="url">{{ item.title }}</a>
+              <a href="{{ config.root }}{{ article.path }}" title="{{ article.title }}" itemprop="url">{{ article.title }}</a>
           {% endif %}
       </h1>
 
@@ -143,14 +146,16 @@
           {% else %}
               <a href="{{ config.root }}about" title="{{ config.author }}" target="_blank" itemprop="author">{{ config.author }}</a>
           {% endif %}
+      </p>
+
       <p class="article-time">
-        <time datetime="{{ date_xml(item.date) }}" itemprop="datePublished"> {{ gettext('datepublished') }} {{ item.date.strftime(config.date_format) }}</time>
+        <time datetime="{{ date_xml(article.date) }}" itemprop="datePublished"> {{ gettext('datepublished') }} {{ article.date.strftime(config.date_format) }}</time>
       </p>
     </header>
 {% endmacro %}
 
 
-{% macro jiathis() %}
+{% macro jiathis(article) %}
     {% if theme.jiathis.enable %}
         <div class="jiathis_style_24x24">
             <a class="jiathis_button_tsina"></a>
@@ -167,48 +172,40 @@
             var jiathis_config= {
                         data_track_clickback: true,
                         sm: "copy,renren,cqq",
-                        pic: "<%- item.photos %>",
+                        pic: "{{ article.photos }}",
                         summary: "",
                         {% if theme.jiathis.tsina %}
-                            relateuid: {"tsina": "<%= theme.jiathis.tsina %>"},
+                            relateuid: {"tsina": "{{ theme.jiathis.tsina }}"},
                             hideMore: false
                         {% endif %}
                     }
           </script>
 
-        <script type="text/javascript" src="//v3.jiathis.com/code/jia.js?uid={% if theme.jiathis.id %} {{ theme.jiathis.id }} {% endif %}" charset="utf-8"></script>
+        <script type="text/javascript" src="//v3.jiathis.com/code/jia.js?uid={{ theme.jiathis.id|default }}" charset="utf-8"></script>
     {% endif %}
 {% endmacro %}
 
-{# 上下文导航 #}
-{% macro pagination(page) %}
-    {% if page.prev or page.next %}
+{# 上下文章导航 #}
+{% macro pagination(article) %}
+    {% if article.prev or article.next %}
         <nav class="article-nav clearfix">
-            {% if page.prev %}
+            {% if article.prev %}
                 <div class="prev" >
-                    <a href="{{ config.root }}{{ page.prev.path }}" title="{{ page.prev.title }}">
+                    <a href="{{ config.root }}{{ article.prev.path }}" title="{{ article.prev.title }}">
                         <strong>上一篇：</strong><br/>
                         <span>
-                            {% if page.prev.title %}
-                                {{ page.prev.title }}
-                            {% else %}
-                                no title
-                            {% endif %}
+                            {{ article.prev.title|default('no title') }}
                         </span>
                     </a>
                 </div>
             {% endif %}
 
-            {% if page.next %}
+            {% if article.next %}
                 <div class="next">
-                    <a href="{{ config.root }}{{ page.next.path }}"  title="{{ page.next.title }}">
+                    <a href="{{ config.root }}{{ article.next.path }}"  title="{{ article.next.title }}">
                      <strong>下一篇：</strong><br/>
                         <span>
-                            {% if page.next.title %}
-                                {{ page.next.title }}
-                            {% else %}
-                                no title
-                            {% endif %}
+                            {{ article.next.title|default('no title') }}
                         </span>
                     </a>
                 </div>

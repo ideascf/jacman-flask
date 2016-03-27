@@ -12,49 +12,39 @@
         {% set icon = 'tag' %}
     {% endif %}
 
+
     {% if page.archive %}
+        {% set icon = 'archive' %}
+
         {% if page.year %}
             {% if page.month %}
-                {% set month = '/' + page.month %}
+                {% set month = '/' + page.month|string %}
             {% else %}
                 {% set month = '' %}
             {% endif %}
 
-            {% set title = page.year + month %}
+            {% set title = page.year|string + month %}
         {% else %}
             {% set title = gettext('archive_a') %}
         {% endif %}
-
-        {% set icon = 'archive' %}
     {% endif %}
 
-<div class="archive-title" >
-  <h2 class="{{ icon }}-icon">{{ title }}</h2>
-    {% if page.archive %}
-        <div class="archiveslist archive-float clearfix">
-            {{ list_archives({'format': gettext('archive_date')}) }}
+    <div class="archive-title" >
+      <h2 class="{{ icon }}-icon">{{ title }}</h2>
+        {% if page.archive %}
+            <div class="archiveslist archive-float clearfix">
+                {{ list_archives({'format': gettext('archive_date')}) }}
+            </div>
+        {% endif %}
+    </div>
+
+    <div id="main" class="archive-part clearfix">
+        <div id="archive-page">
+            {% import 'unit/article_row.html' as article_row %}
+
+            {% for post in page.posts %}
+                {{ article_row.article_row(item=post) }}
+            {% endfor %}
         </div>
-    {% endif %}
-</div>
-
-<div id="main" class="archive-part clearfix">
-  <div id="archive-page">
-      {% for p in page.posts %}
-          {{ post }}
-      {% endfor %}
-
-<% page.posts.each(function(item){ %>
-  <%- partial('_partial/article_row', {item: item, index: true}) %>
-<% }); %>
-<% if (page.total > 1){ %>
-  <nav id="page-nav" class="clearfix archive-nav">
-    <%- paginator({
-      prev_text: '<span></span>Prev',
-      next_text: 'Next<span></span>'
-    }) %>
-  </nav>
-<% } %>
-  </div>
-</div>
-
+    </div>
 {% endmacro %}

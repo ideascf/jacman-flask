@@ -7,15 +7,20 @@
 {% import 'unit/tags.html' as tags %}
 {% import 'unit/search.html' as search %}
 
-{{ head.head() }}
+{{ head.head(page) }}
 <body>
     <header>
         {{ header.header() }}
     </header>
 
-    {% block main %}
-        {{ body }}
-    {% endblock %}
+    <div id="container">
+        {% block main %}
+            {{ body }}
+        {% endblock %}
+
+        {% block sidebar %}
+        {% endblock sidebar %}
+    </div>
 
     <footer>{{ footer.footer() }}</footer>
     {{ after_footer.after_footer() }}

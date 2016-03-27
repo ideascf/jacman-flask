@@ -1,0 +1,51 @@
+{% macro prepareQuery(parent) %}
+    {% set query = {} %}
+
+    {% if parent %}
+        {% query['parent'] = parent %}
+    {% else %}
+        {% query.parent = {'exists': false} %}
+    {% endif %}
+{% endmacro %}
+
+{% macro flatList(level, parent) %}
+
+{% endmacro %}
+
+
+{% macro list_categories(categories, config) %}
+    {% if not config and (not categories or not (categories|length)) %}
+        {% set config = categories %}
+        {% set categories = site.categories %}
+    {% endif %}
+
+    {% if not categories or not (categories|length) %}
+        {{ '' }}
+    {% else %}
+        {% set config = config|default({}) %}
+
+        {# 获取所有值 #}
+        {% set style = config.style|default('list') %}
+        {% set showCount = config.showCount|default(true) %}
+        {% set className = config.class|default('category', true) %}
+        {% set depth = config.depth|int(0) %}
+        {% set orderby = config.orderby|default('name', true) %}
+        {% set order = config.order|int(1) %}
+        {% set transform = config.transform %}
+        {% set separator = config.separator|default(', ') %}
+        {% set showCurrent = config.showCurrent|default(false, true) %}
+        {% set childrenIndicator = config.childrenIndicator|default(false) %}
+        {% set result = '' %}
+
+
+        {% if style == 'list' %}
+            {% set result = result + '<ul class="' + className + '-list">' + hierarchicalList(0) + '</ul>' %}
+        {% else %}
+            {% set result = result + flatList(0) %}
+        {% endif %}
+
+        {# 返回result #}
+        {{ result }}
+    {% endif %}
+
+{% endmacro %}

@@ -1,2 +1,16 @@
-{% import 'unit/post.html' as m %}
-{{ m.article({'item': page, 'index': false, 'table': true}) }}
+{#{% import 'unit/post.html' as m %}#}
+{#{{ m.article({'item': page, 'index': false, 'table': true}) }}#}
+
+{% extends 'base.html' %}
+
+{% block main %}
+    {% import 'unit/sidebar.html' as sidebar %}
+    {% import 'unit/post.html' as post %}
+
+    {{ post.article(page, true) }}
+{% endblock main %}
+
+{% block sidebar %}
+    {#侧划抽屉#}
+    {{ sidebar.sidebar(page=page, table=true) }}
+{% endblock sidebar %}

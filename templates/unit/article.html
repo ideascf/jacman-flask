@@ -1,51 +1,51 @@
-{% macro article(item, index, desc) %}
+{% macro article(page, article, index, desc) %}
     {% import 'unit/post.html' as post %}
 
     {% if theme.index.expand %}
-        {% if page.layout == 'photo' and item.photos and item.photos|length %}
-            {{ post.gallery(item) }}
+        {% if page.layout == 'photo' and article.photos and article.photos|length %}
+            {{ post.gallery(article) }}
         {% endif %}
 
-        <article class="post-expand {{ item.layout }}" itemprop="articleBody">
-            {{ post.header(item) }}
+        <article class="post-expand {{ article.layout }}" itemprop="articleBody">
+            {{ post.header(article) }}
 
             <div class="article-content">
-                {% if item.excerpt and index %}
-                    {{ item.excerpt }}
+                {% if article.excerpt and index %}
+                    {{ article.excerpt }}
                 {% else %}
-                    {{ item.content }}
+                    {{ article.content }}
                 {% endif %}
 
                 <p class="article-more-link">
-                    {% if item.excerpt and index and theme.index.excerpt_link %}
-                        <a href="{{ url_for(item.path) }}#more">{{ theme.index.excerpt_link }}</a>
+                    {% if article.excerpt and index and theme.index.excerpt_link %}
+                        <a href="{{ url_for(article.path) }}#more">{{ theme.index.excerpt_link }}</a>
                     {% endif %}
                </p>
             </div>
 
-            {{ post.footer(item, index=true) }}
+            {{ post.footer(article, index=true) }}
         </article>
     {% else %}
         <section class="post" itemscope itemprop="blogitem">
-            {% if item.link %}
-                <a href="{{ item.link }}" target="_blank">
+            {% if article.link %}
+                <a href="{{ article.link }}" target="_blank">
             {% else %}
-                <a href="{{ config.root }}{{ item.path }}" title="{{ item.title }}" itemprop="url">
+                <a href="{{ config.root }}{{ article.path }}" title="{{ article.title }}" itemprop="url">
             {% endif %}
 
-            <h1 itemprop="name">{{ item.title }}</h1>
+            <h1 itemprop="name">{{ article.title }}</h1>
 
-            {% if desc %}
-                {% if item.description %}
-                    <p itemprop="description" >{{ item.description }}</p>
-                {% elif item.excerpt %}
-                    <p itemprop="description" >{{ get_article_desc(item.excerpt) }}</p>
+            {% if theme.show_article_desc %}
+                {% if article.description %}
+                    <p itemprop="description" >{{ article.description }}</p>
+                {% elif article.excerpt %}
+                    <p itemprop="description" >{{ get_article_desc(article.excerpt) }}</p>
                 {% else %}
-                    <p itemprop="description" >{{ get_article_desc(item.excerpt) }}</p>
+                    <p itemprop="description" >{{ get_article_desc(article.content) }}</p>
                 {% endif %}
             {% endif %}
 
-            <time datetime="{{ date_xml(item.date) }}" itemprop="datePublished">{{ item.date.strftime(config.date_format) }}</time>
+            <time datetime="{{ date_xml(article.date) }}" itemprop="datePublished">{{ article.date.strftime(config.date_format) }}</time>
           </a>
         </section>
     {% endif %}

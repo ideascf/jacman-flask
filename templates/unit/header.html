@@ -7,7 +7,7 @@
         {% endif %}
 
         <div id="textlogo">
-            <h1 class="site-name"><a href="{{ config.root }}" title="{{ config.title }}">{{ config.title }}</a></h1
+            <h1 class="site-name"><a href="{{ config.root }}" title="{{ config.title }}">{{ config.title }}</a></h1>
             <h2 class="blog-motto">{{ config.subtitle|default() }}</h2>
         </div>
 
@@ -17,8 +17,8 @@
 
         <nav class="animated">
             <ul>
-                {% for menu in theme.menu %}
-                    <li><a href="{{ root_for(theme.menu[i]) }}">{{ menu }}</a></li>
+                {% for item in theme.menu %}
+                    <li><a href="{{ root_for(item.path) }}">{{ item.title }}</a></li>
                 {% endfor %}
 
                 <li>

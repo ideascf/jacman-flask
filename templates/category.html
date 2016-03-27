@@ -1,2 +1,11 @@
-{% import 'unit/archive.html' as m %}
-{{ m.archive({'pagination': config.archive}) }}
+{#{% import 'unit/archive.html' as m %}#}
+{#{{ m.archive({'pagination': config.archive}) }}#}
+
+{% extends 'base.html' %}
+
+{% block main %}
+    <div id="container">
+        {{ categories.categories() }}
+        {{ cate }}
+    </div>
+{% endblock main %}

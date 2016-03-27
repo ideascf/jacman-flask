@@ -1,9 +1,6 @@
 //Color
-_color-theme = convert(hexo-config("theme_color.theme"))
-if(_color-theme is a 'rgba')
-  color-theme = _color-theme
-else
-  color-theme = #2ca6cb
+// @CONFIG 主题色
+color-theme = #2ca6cb
   
 color-background = #ddd
 color-font = #817C7C
@@ -51,14 +48,14 @@ font-icon-version = "4.0.3"
 font-icon-diao = "fontdiao"
 font-icon-diao-filename = "fontdiao"
 font-icon-diao-version = "0.0.8"
-ShowCustomFont = hexo-config("ShowCustomFont")
+ShowCustomFont = true
 font-size = 100%
 line-height = 1.5
 //image
-author-img = hexo-config("author_img")
+author-img = "img/author.jpg"
 
 //comment
-duoshuo = hexo-config("duoshuo_shortname")
+duoshuo = ""
 
 //banner image
-banner-img = hexo-config("banner_img")
+banner-img = ""

@@ -1,2 +1,14 @@
-{% import 'unit/post.html' as m %}
-{{ m.article({'item': page, 'index': false, 'table': false}) }}
+{#{% import 'unit/post.html' as m %}#}
+{#{{ m.article({'item': page, 'index': false, 'table': false}) }}#}
+
+{#{% if page.source.endswith('.md') %}#}
+    {% extends 'base.html' %}
+
+    {% block main %}
+        <div id="container">
+            {{ body }}
+        </div>
+    {% endblock main %}
+{#{% else %}#}
+{#    {{ page.content }}#}
+{#{% endif %}#}

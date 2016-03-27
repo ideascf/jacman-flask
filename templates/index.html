@@ -1,17 +1,27 @@
-{% import 'unit/article.html' as article %}
-{% import 'unit/pagination.html' as pagination %}
-{% import 'layout.html' as layout %}
+{% extends "base.html" %}
 
-{#{{ layout.layout(page) }}#}
+{% block main %}
 
-<div id="main">
-    {% for post in page.posts %}
-        {{ article.article(item=post, index=true, desc=true) }}
-    {% endfor %}
+    {% import 'unit/article.html' as article %}
+    {% import 'unit/pagination.html' as pagination %}
+    {% import 'unit/sidebar.html' as sidebar %}
 
-    {% if page.total > 1 %}
-        <nav id="page-nav" class="clearfix {% if not theme.index.expand %} unexpand {% endif %}">
-        {{ pagination.pagination(page={'prev': '<span></span>Prev', 'next': 'Next<span></span>'}) }}
-        </nav>
-    {% endif %}
-</div>
+    <div id="main">
+        {#文章列表#}
+        {% for post in page.posts %}
+            {{ article.article(page=page, article=post, index=true, desc=true) }}
+        {% endfor %}
+
+        {#分页选择器#}
+        {% if page.total > 1 %}
+            <nav id="page-nav" class="clearfix {% if not theme.index.expand %} unexpand {% endif %}">
+            {{ pagination.pagination(page={'prev': '<span></span>Prev', 'next': 'Next<span></span>'}) }}
+            </nav>
+        {% endif %}
+    </div>
+{% endblock main %}
+
+{% block sidebar %}
+    {#侧划抽屉#}
+    {{ sidebar.sidebar(page=page, table=false) }}
+{% endblock sidebar %}

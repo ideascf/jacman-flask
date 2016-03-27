@@ -1,9 +1,7 @@
 {% extends 'base.html' %}
 
-{% import'unit/archive.html' as archive %}
-
 {% block main %}
     <div id="container">
-        {{ archive.archive(page) }}
+        {{ search.search() }}
     </div>
 {% endblock main %}
