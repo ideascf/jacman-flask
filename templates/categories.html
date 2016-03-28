@@ -1,0 +1,21 @@
+{#{% import 'unit/archive.html' as m %}#}
+{#{{ m.archive({'pagination': config.archive}) }}#}
+
+{% extends 'base.html' %}
+
+{% block main %}
+    <div id="container">
+        {% import 'unit/categories.html' as categories %}
+        {{ categories.categories() }}
+
+        <div id="main" class="archive-part clearfix">
+        <div id="archive-page">
+            {% import 'unit/article_row.html' as article_row  %}
+
+            {% for post in page.posts %}
+                {{ article_row.article_row(item=post) }}
+            {% endfor %}
+        </div>
+    </div>
+    </div>
+{% endblock main %}

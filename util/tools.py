@@ -152,7 +152,7 @@ def list_archives(page, options):
     result = ''
 
     posts = sorted(
-        site.posts,
+        page['posts'],
         key=lambda post: post['date'],
         reverse=reverse
     )

@@ -1,10 +1,13 @@
-{#{% import 'unit/archive.html' as m %}#}
-{#{{ m.archive({'pagination': config.tag}) }}#}
+
 
 {% extends 'base.html' %}
 
 {% block main %}
     <div id="container">
+        {% import 'unit/tags.html' as tags %}
         {{ tags.tags() }}
+
+        {% import 'unit/archive.html' as archive %}
+        {{ archive.archive(page) }}
     </div>
 {% endblock main %}

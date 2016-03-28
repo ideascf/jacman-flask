@@ -37,95 +37,6 @@ item = {
     'content': 'item-content',
 }
 
-article_left = {
-    'title': 'title-right',  # 标题
-    'date': datetime.datetime.now(),  # 创建日期
-    'updated': datetime.datetime.now(),  # 修改日期
-    'toc': True,  # 是否显示目录
-    'comments': '',  # 注释
-    'layout': 'post',  # 本文使用的布局
-    'content': 'content-testtest',  # 文章内容
-    'categories': [category1, category2],  # 文章所加标签
-    'excerpt': 'excerpt-test',  # 文章摘要
-    'more': 'more-test',  #
-    'source': 'source-test',
-    'full_source': 'full_source-test',
-    'path': 'path_test',  # 文章对应的path(非完整链接),如 /post/article1
-    'permalink': 'permalink-test',  # 永久链接
-    'prev': None,  # 上一篇
-    'next': None,  # 下一篇
-    'raw': 'raw-test',  #
-    'photos': [],  # 文章使用的图片
-    'link': 'post/link-test',  # 文章对应的链接(完整链接地址)
-}
-
-
-article_right = {
-    'title': 'title-left',  # 标题
-    'date': datetime.datetime.now(),  # 创建日期
-    'updated': datetime.datetime.now(),  # 修改日期
-    'toc': True,  # 是否显示目录
-    'comments': '',  # 注释
-    'layout': 'post',  # 本文使用的布局
-    'content': 'content-testtest',  # 文章内容
-    'categories': [category1, category2],  # 文章所加标签
-    'excerpt': 'excerpt-test',  # 文章摘要
-    'more': 'more-test',  #
-    'source': 'source-test',
-    'full_source': 'full_source-test',
-    'path': 'path_test',  # 文章对应的path(非完整链接),如 /post/article1
-    'permalink': 'permalink-test',  # 永久链接
-    'prev': None,  # 上一篇
-    'next': None,  # 下一篇
-    'raw': 'raw-test',  #
-    'photos': [],  # 文章使用的图片
-    'link': 'post/link-test',  # 文章对应的链接(完整链接地址)
-}
-
-article = {
-    'title': 'title-test',  # 标题
-    'date': datetime.datetime.now(),  # 创建日期
-    'updated': datetime.datetime.now(),  # 修改日期
-    'toc': True,  # 是否显示目录
-    'comments': '',  # 注释
-    'layout': 'post',  # 本文使用的布局
-    'content': 'content-testtest',  # 文章内容
-    'categories': [category1, category2],  # 文章所加标签
-    'excerpt': 'excerpt-test',  # 文章摘要
-    'more': 'more-test',  #
-    'source': 'source-test',
-    'full_source': 'full_source-test',
-    'path': 'path_test',  # 文章对应的path(非完整链接),如 /post/article1
-    'permalink': 'permalink-test',  # 永久链接
-    'prev': article_left,  # 上一篇
-    'next': article_right,  # 下一篇
-    'raw': 'raw-test',  #
-    'photos': [],  # 文章使用的图片
-    'link': 'post/link-test',  # 文章对应的链接(完整链接地址)
-}
-
-
-article_page = {
-    'title': 'title-test',  # 标题
-    'date': datetime.datetime.now(),  # 创建日期
-    'updated': datetime.datetime.now(),  # 修改日期
-    'toc': True,  # 是否显示目录
-    'comments': '',  # 注释
-    'layout': 'post',  # 本文使用的布局
-    'content': 'content-testtest',  # 文章内容
-    'excerpt': 'excerpt-test',  # 文章摘要
-    'more': 'more-test',  #
-    'source': 'source-test',
-    'full_source': 'full_source-test',
-    'path': 'path_test',  # 文章对应的URL
-    'permalink': 'permalink-test',  # 永久链接
-    'prev': 'prev-test',  # 上一篇
-    'next': 'next-test',  # 下一篇
-    'raw': 'raw-test',  #
-    'photos': [],  # 文章使用的图片
-    'link': '/post/link-test',  # 链接
-}
-
 post_page = {
     'published': True,
     'categories': [category1, category2],
@@ -138,26 +49,39 @@ home_page = {
     'total': 100,
     'current': 1,
     'current_url': '/',
-    'posts': [article_page, article_page, article_page, article_page, article_page, article_page, ],
+    'posts': [site.article1, site.article1, site.article2, site.article2, site.article3, site.article3, ],
     'prev_link': '',
     'next_link': '',
     'path': '/',
     'list_number': False,
 }
 
+
 archive_page = {
     'archive': True,
     'year': 2016,
-    'month': 12,
-    'posts': [article_page, ]
+    'month': 3,
+    'posts': [site.article1, site.article3]
+}
+
+archives_page = {
+    'archive': True,
+    'posts': [site.article1, site.article2, site.article3],
 }
 
 category_page = {
-    'category': 'category1',
+    'category': True,
+    'posts': [site.article1, site.article1, site.article2, site.article2, site.article3, site.article3, ],
 }
 
-tag_page = {
-    'tag': 'tag1',
+tag_page ={
+    'tag': True,
+    'posts': [site.article1, ],
+}
+
+tags_page = {
+    'tag': True,
+    'posts': [site.article1, site.article1, site.article2, site.article2, site.article3, site.article3, ],
 }
 
 @app.context_processor
@@ -190,7 +114,8 @@ app.jinja_env.globals.update(
 
 @app.route('/categories')
 def categories():
-    return 'category'
+    return render_template('categories.html')
+
 
 
 @app.route('/categories/<category_id>')
@@ -198,19 +123,29 @@ def category(category_id):
     return render_template('category.html', page=category_page)
 
 
-@app.route('/archives')
-def archive():
+# @app.route('/archive/<year>/<month>')
+# def archive(year, month):
+@app.route('/archive/<year>/<month>/')
+def archive(year, month):
     return render_template('archive.html', page=archive_page)
+
+@app.route('/archives')
+def archives():
+    return render_template('archives.html', page=archives_page)
 
 
 @app.route('/post/<article_id>')
 def get_post(article_id):
-    return render_template('post.html', page=article, body='bodybody')
+    return render_template('post.html', page=site.article1, body='bodybody')
 
 
-@app.route('/path-test')
-def path_test():
+@app.route('/tag/<tag_id>')
+def tag(tag_id):
     pass
+
+@app.route('/tags')
+def tags():
+    return render_template('tag.html', page=tags_page)
 
 
 @app.route('/')

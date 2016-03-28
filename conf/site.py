@@ -5,8 +5,8 @@ tag1 = {'path': '/path/java', 'name': 'java', 'posts': ['post1', 'post2']}
 tag2 = {'path': '/path/go', 'name': 'go', 'posts': ['post1', 'post3']}
 tag3 = {'path': '/path/python', 'name': 'python', 'posts': ['post1', 'post2', 'post4']}
 
-category1 = {'_id': 1, 'posts': ['post1', 'post2'], 'path': 'category', 'name': 'category1', 'parent': None}
-category2 = {'_id': 2, 'posts': ['post3', ], 'path': 'category', 'name': 'category2', 'parent': None}
+category1 = {'_id': 1, 'posts': ['post1', 'post2'], 'path': 'categories/category1', 'name': 'category1', 'parent': None}
+category2 = {'_id': 2, 'posts': ['post3', ], 'path': 'categories/category2', 'name': 'category2', 'parent': None}
 
 
 article1 = {
@@ -56,7 +56,7 @@ article3 = {
 
 article2 = {
     'title': 'title-test',  # 标题
-    'date': datetime.datetime.now(),  # 创建日期
+    'date': datetime.datetime.strptime('2016-02-03 11:00:00', '%Y-%m-%d %H:%M:%S'),  # 创建日期
     'updated': datetime.datetime.now(),  # 修改日期
     'toc': True,  # 是否显示目录
     'comments': '',  # 注释
@@ -81,7 +81,7 @@ tags = [tag1, tag2, tag3]
 categories = [category1, category2]
 posts = [article1, article2, article3]
 
-archive_dir = '/archives'
+archive_dir = '/archive'
 
 timezone = 'UTC+8'  # 时区
 
