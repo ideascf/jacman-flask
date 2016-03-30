@@ -2,7 +2,7 @@
 {% macro article(article, table) %}
     <div id="main" class="{{ article.layout }}" itemscope itemprop="blogPost">
         {% if article.layout == 'photo' and article.photos and article.photos|length %}
-            {{ gallery() }}
+            {{ gallery(article) }}
         {% endif %}
 
         <article itemprop="articleBody">
@@ -25,7 +25,7 @@
                 {{ article.content }}
             </div>
             {# 文章的footer #}
-            {{ footer(article, 1) }}
+            {{ footer(article, false) }}
         </article>
         {{ pagination(article) }}
         {{ comment(article) }}
@@ -51,11 +51,11 @@
             <div class="article-tags">
                 {% set tags = [] %}
 
+                <span></span>
                 {% for tag in article.tags %}
-                    {{ tags.append('<a href="' + config.root + tag.path + '">' + tag.name + '</a>') }}
+                    {{ ('<a href="' + config.root + tag.path + '">' + tag.name + '</a>')|safe }}
                 {% endfor %}
 
-                <span></span> {{ ''.join(tags) }}
              </div>
         {% endif %}
     </div>

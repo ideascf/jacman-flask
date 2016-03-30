@@ -44,19 +44,12 @@ def list_categories(page, categories, options):
     childrenIndicator = options.get('children_indicator', False)
     result = ''
 
-    def prepare_query(parent):
-        query = {}
-
-        if parent:
-            query['parent'] = parent
-        else:
-            query['parent'] = None
-
+    def get_parents(category):
         return filter(
             lambda category: len(category),
             sorted(
                 filter(
-                    lambda category: category['_id'] == parent,
+                    lambda category: category['id'] == category['id'],
                     categories
                 ),
                 key=lambda category: category[orderby],
@@ -69,7 +62,7 @@ def list_categories(page, categories, options):
         """
         result = ''
 
-        for i, cat in enumerate(prepare_query(parent)):
+        for i, cat in enumerate(get_parents(parent)):
             child = None
             if not depth or level + 1 < depth:
                 child = hierarchical_list(level + 1, cat['_id'])
@@ -109,20 +102,20 @@ def list_categories(page, categories, options):
     def flat_list(level, parent=None):
         result = ''
 
-        for i, cat in enumerate(prepare_query(parent)):
+        for i, category in enumerate(get_parents(parent)):
             if i or level:
                 result += separator
 
-            result += '<a class="' + className + '-link" href="' + url_for(cat['path'], category_id=cat['name']) + '">'
-            result += transform(cat['name']) if transform else cat['name']
+            result += '<a class="' + className + '-link" href="' + url_for(site.path['category'], category_id=category['name']) + '">'
+            result += transform(category['name']) if transform else category['name']
 
             if showCount:
-                result += '<span class="' + className + '-count">' + str(len(cat)) + '</span>'
+                result += '<sup>' + str(len(category['posts'])) + '</sup>'
 
             result += '</a>'
 
-            if not depth or level + 1 < depth:
-                result += flat_list(level + 1, cat['_id'])
+            if  depth and level + 1 < depth:
+                result += flat_list(level + 1, category['id'])
 
         return result
 

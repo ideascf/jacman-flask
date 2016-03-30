@@ -81,6 +81,7 @@ tag_page ={
 
 tags_page = {
     'tag': True,
+    'tags': [site.tag1, site.tag2, site.tag3],
     'posts': [site.article1, site.article1, site.article2, site.article2, site.article3, site.article3, ],
 }
 
@@ -135,16 +136,21 @@ def archives():
 
 @app.route('/post/<article_id>')
 def post(article_id):
-    return render_template('post.html', page=site.article1, body='bodybody')
+    page = getattr(site, 'article'+str(article_id))
+    return render_template('post.html', page=page, body='bodybody')
 
 
 @app.route('/tag/<tag_id>')
 def tag(tag_id):
-    pass
+    return  render_template('tag.html', page=tag_page)
 
 @app.route('/tags')
 def tags():
-    return render_template('tag.html', page=tags_page)
+    return render_template('tags.html', page=tags_page)
+
+@app.route('/about')
+def about():
+    return render_template('about.html', page={})
 
 
 @app.route('/')

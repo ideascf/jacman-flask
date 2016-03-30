@@ -1,12 +1,12 @@
 # coding=utf-8
 import datetime
 
-tag1 = {'path': '/path/java', 'name': 'java', 'posts': ['post1', 'post2']}
-tag2 = {'path': '/path/go', 'name': 'go', 'posts': ['post1', 'post3']}
-tag3 = {'path': '/path/python', 'name': 'python', 'posts': ['post1', 'post2', 'post4']}
+tag1 = {'id': 1, 'path': 'tag/java', 'name': 'java', 'posts': ['post1', 'post2']}
+tag2 = {'id': 2, 'path': 'tag/go', 'name': 'go', 'posts': ['post1', 'post3']}
+tag3 = {'id': 3, 'path': 'tag/python', 'name': 'python', 'posts': ['post1', 'post2', 'post4']}
 
-category1 = {'_id': 1, 'posts': ['post1', 'post2'], 'path': 'categories/category1', 'name': 'category1', 'parent': None}
-category2 = {'_id': 2, 'posts': ['post3', ], 'path': 'categories/category2', 'name': 'category2', 'parent': None}
+category1 = {'id': 1, 'posts': ['post1', 'post2'], 'path': 'categories/category1', 'name': 'category1', 'parent': None}
+category2 = {'id': 2, 'posts': ['post3', ], 'path': 'categories/category2', 'name': 'category2', 'parent': None}
 
 
 article1 = {
@@ -19,6 +19,7 @@ article1 = {
     'layout': 'post',  # 本文使用的布局
     'content': 'content-testtest',  # 文章内容
     'categories': [category1, category2],  # 文章所加标签
+    'tags': [tag1, tag2],
     'excerpt': 'excerpt-test',  # 文章摘要
     'more': 'more-test',  #
     'source': 'source-test',
@@ -29,7 +30,7 @@ article1 = {
     'next': None,  # 下一篇
     'raw': 'raw-test',  #
     'photos': [],  # 文章使用的图片
-    'link': 'post/link-test',  # 文章对应的链接(完整链接地址)
+    'link': '/post/1',  # 文章对应的链接(完整链接地址)
 }
 
 
@@ -43,6 +44,7 @@ article3 = {
     'layout': 'post',  # 本文使用的布局
     'content': 'content-testtest',  # 文章内容
     'categories': [category1, category2],  # 文章所加标签
+    'tags': [tag1, tag3],
     'excerpt': 'excerpt-test',  # 文章摘要
     'more': 'more-test',  #
     'source': 'source-test',
@@ -53,7 +55,7 @@ article3 = {
     'next': None,  # 下一篇
     'raw': 'raw-test',  #
     'photos': [],  # 文章使用的图片
-    'link': 'post/link-test',  # 文章对应的链接(完整链接地址)
+    'link': 'post/3',  # 文章对应的链接(完整链接地址)
 }
 
 article2 = {
@@ -66,6 +68,7 @@ article2 = {
     'layout': 'post',  # 本文使用的布局
     'content': 'content-testtest',  # 文章内容
     'categories': [category1, category2],  # 文章所加标签
+    'tags': [tag2, tag3],
     'excerpt': 'excerpt-test',  # 文章摘要
     'more': 'more-test',  #
     'source': 'source-test',
@@ -76,7 +79,7 @@ article2 = {
     'next': article3,  # 下一篇
     'raw': 'raw-test',  #
     'photos': [],  # 文章使用的图片
-    'link': 'post/link-test',  # 文章对应的链接(完整链接地址)
+    'link': 'post/2',  # 文章对应的链接(完整链接地址)
 }
 
 
@@ -89,3 +92,7 @@ archive_dir = '/archive'
 timezone = 'UTC+8'  # 时区
 
 lang = 'zh'  # 语言
+
+path = {
+    'category': 'category',
+}

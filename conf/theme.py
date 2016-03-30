@@ -18,13 +18,15 @@ toc = {
     'aside': True,
 }
 
-author = {
-    'tsina': 'sina weibo',
-    'weibo_verifier': 'weibo_verifier....',
-    'github': 'ideascf',
-    'douban': 'wuchong1014',
+# author = {
+#     'tsina': 'sina weibo',
+#     'weibo_verifier': 'weibo_verifier....',
+#     'github': 'ideascf',
+#     'douban': 'wuchong1014',
+#
+# }
 
-}
+author = 'joychen'
 
 links = {
     'manong': 'https://coderq.com,programmer share...',
@@ -96,4 +98,9 @@ archive_conf = {
     'separator': ', ',
     'class_name': 'archive',
     'reverse': False,
+}
+
+# social share
+jiathis = {
+    'enable': False,
 }
