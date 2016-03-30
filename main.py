@@ -108,13 +108,12 @@ app.jinja_env.globals.update(
     tinysou_search=tinysou_search,
 
     item=item,
-    page=home_page,
 )
 
 
 @app.route('/categories')
 def categories():
-    return render_template('categories.html')
+    return render_template('categories.html', page=category_page)
 
 
 
@@ -135,7 +134,7 @@ def archives():
 
 
 @app.route('/post/<article_id>')
-def get_post(article_id):
+def post(article_id):
     return render_template('post.html', page=site.article1, body='bodybody')
 
 
@@ -150,7 +149,7 @@ def tags():
 
 @app.route('/')
 def home():
-    return render_template('index.html')
+    return render_template('index.html', page=home_page)
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=8888, debug=True)

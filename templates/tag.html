@@ -7,7 +7,17 @@
         {% import 'unit/tags.html' as tags %}
         {{ tags.tags() }}
 
-        {% import 'unit/archive.html' as archive %}
-        {{ archive.archive(page) }}
+        <div id="main" class="archive-part clearfix">
+            <div id="archive-page">
+                {% import 'unit/article_row.html' as article_row  %}
+
+                {% for post in page.posts %}
+                    {{ article_row.article_row(item=post) }}
+                {% endfor %}
+            </div>
+        </div>
+{#    #}
+{#        {% import 'unit/archive.html' as archive %}#}
+{#        {{ archive.archive(page) }}#}
     </div>
 {% endblock main %}

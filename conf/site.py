@@ -10,6 +10,7 @@ category2 = {'_id': 2, 'posts': ['post3', ], 'path': 'categories/category2', 'na
 
 
 article1 = {
+    'id': 1,
     'title': 'title-right',  # 标题
     'date': datetime.datetime.now(),  # 创建日期
     'updated': datetime.datetime.now(),  # 修改日期
@@ -22,7 +23,7 @@ article1 = {
     'more': 'more-test',  #
     'source': 'source-test',
     'full_source': 'full_source-test',
-    'path': 'path_test',  # 文章对应的path(非完整链接),如 /post/article1
+    'path': 'post',  # 文章对应的path(非完整链接),如 /post/article1
     'permalink': 'permalink-test',  # 永久链接
     'prev': None,  # 上一篇
     'next': None,  # 下一篇
@@ -33,6 +34,7 @@ article1 = {
 
 
 article3 = {
+    'id': 3,
     'title': 'title-left',  # 标题
     'date': datetime.datetime.now(),  # 创建日期
     'updated': datetime.datetime.now(),  # 修改日期
@@ -45,7 +47,7 @@ article3 = {
     'more': 'more-test',  #
     'source': 'source-test',
     'full_source': 'full_source-test',
-    'path': 'path_test',  # 文章对应的path(非完整链接),如 /post/article1
+    'path': 'post',  # 文章对应的path(非完整链接),如 /post/article1
     'permalink': 'permalink-test',  # 永久链接
     'prev': None,  # 上一篇
     'next': None,  # 下一篇
@@ -55,6 +57,7 @@ article3 = {
 }
 
 article2 = {
+    'id': 2,
     'title': 'title-test',  # 标题
     'date': datetime.datetime.strptime('2016-02-03 11:00:00', '%Y-%m-%d %H:%M:%S'),  # 创建日期
     'updated': datetime.datetime.now(),  # 修改日期
@@ -67,7 +70,7 @@ article2 = {
     'more': 'more-test',  #
     'source': 'source-test',
     'full_source': 'full_source-test',
-    'path': 'path_test',  # 文章对应的path(非完整链接),如 /post/article1
+    'path': 'post',  # 文章对应的path(非完整链接),如 /post/article1
     'permalink': 'permalink-test',  # 永久链接
     'prev': article1,  # 上一篇
     'next': article3,  # 下一篇

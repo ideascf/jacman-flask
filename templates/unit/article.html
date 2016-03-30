@@ -18,7 +18,7 @@
 
                 <p class="article-more-link">
                     {% if article.excerpt and index and theme.index.excerpt_link %}
-                        <a href="{{ url_for(article.path) }}#more">{{ theme.index.excerpt_link }}</a>
+                        <a href="{{ url_for('post', article_id=article.id) }}#more">{{ theme.index.excerpt_link }}</a>
                     {% endif %}
                </p>
             </div>
